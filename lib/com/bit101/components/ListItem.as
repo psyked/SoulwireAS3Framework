@@ -89,15 +89,15 @@ package com.bit101.components
 
 			if(_selected)
 			{
-				graphics.beginFill(_selectedColor);
+				graphics.beginFill(Style.BUTTON_FACE);
 			}
 			else if(_mouseOver)
 			{
-				graphics.beginFill(_rolloverColor);
+				graphics.beginFill(Style.BUTTON_FACE);
 			}
 			else
 			{
-				graphics.beginFill(_defaultColor);
+				graphics.beginFill(Style.PANEL);
 			}
 			graphics.drawRect(0, 0, width, height);
 			graphics.endFill();

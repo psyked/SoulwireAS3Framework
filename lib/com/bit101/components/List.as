@@ -43,10 +43,6 @@ package com.bit101.components
 		protected var _listItemClass:Class =ListItem;
 		protected var _scrollbar:VScrollBar;
 		protected var _selectedIndex:int = -1;
-		protected var _defaultColor:uint = 0xffffff;
-		protected var _alternateColor:uint = 0xf3f3f3;
-		protected var _selectedColor:uint = 0xcccccc;
-		protected var _rolloverColor:uint = 0xdddddd;
 		protected var _alternateRows:Boolean = false;
 		
 		/**
@@ -89,7 +85,7 @@ package com.bit101.components
 		{
 			super.addChildren();
 			_panel = new Panel(this, 0, 0);
-			_panel.color = _defaultColor;
+			_panel.color = Style.BUTTON_FACE;
 			_itemHolder = new Sprite();
 			_panel.content.addChild(_itemHolder);
 			_scrollbar = new VScrollBar(this, 0, 0, onScroll);
@@ -109,10 +105,10 @@ package com.bit101.components
 
 				var item:ListItem = new _listItemClass(_itemHolder, 0, i * _listItemHeight);
 				item.setSize(width, _listItemHeight);
-				item.defaultColor = _defaultColor;
+				item.defaultColor = Style.BUTTON_FACE;
 
-				item.selectedColor = _selectedColor;
-				item.rolloverColor = _rolloverColor;
+				item.selectedColor = Style.BACKGROUND;
+				item.rolloverColor = Style.BACKGROUND;
 				item.addEventListener(MouseEvent.CLICK, onSelect);
 			}
 		}
@@ -135,11 +131,11 @@ package com.bit101.components
 				}
 				if(_alternateRows)
 				{
-					item.defaultColor = ((offset + i) % 2 == 0) ? _defaultColor : _alternateColor;
+					item.defaultColor = ((offset + i) % 2 == 0) ? Style.BUTTON_FACE : Style.PANEL;
 				}
 				else
 				{
-					item.defaultColor = _defaultColor;
+					item.defaultColor = Style.BUTTON_FACE;
 				}
                 if(offset + i == _selectedIndex)
                 {
@@ -194,7 +190,7 @@ package com.bit101.components
 
 			// panel
 			_panel.setSize(_width, _height);
-			_panel.color = _defaultColor;
+			_panel.color = Style.BUTTON_FACE;
 			_panel.draw();
 			
 			// scrollbar
@@ -367,12 +363,12 @@ package com.bit101.components
 		 */
 		public function set defaultColor(value:uint):void
 		{
-			_defaultColor = value;
+			Style.BUTTON_FACE = value;
 			invalidate();
 		}
 		public function get defaultColor():uint
 		{
-			return _defaultColor;
+			return Style.BUTTON_FACE;
 		}
 
 		/**
@@ -380,12 +376,12 @@ package com.bit101.components
 		 */
 		public function set selectedColor(value:uint):void
 		{
-			_selectedColor = value;
+			Style.BACKGROUND = value;
 			invalidate();
 		}
 		public function get selectedColor():uint
 		{
-			return _selectedColor;
+			return Style.BACKGROUND;
 		}
 
 		/**
@@ -393,12 +389,12 @@ package com.bit101.components
 		 */
 		public function set rolloverColor(value:uint):void
 		{
-			_rolloverColor = value;
+			Style.BACKGROUND = value;
 			invalidate();
 		}
 		public function get rolloverColor():uint
 		{
-			return _rolloverColor;
+			return Style.BACKGROUND;
 		}
 
 		/**
@@ -447,12 +443,12 @@ package com.bit101.components
 		 */
 		public function set alternateColor(value:uint):void
 		{
-			_alternateColor = value;
+			Style.PANEL = value;
 			invalidate();
 		}
 		public function get alternateColor():uint
 		{
-			return _alternateColor;
+			return Style.PANEL;
 		}
 		
 		/**

@@ -73,7 +73,6 @@ package com.bit101.components
 		override protected function addChildren():void
 		{
 			_panel = new Panel(this);
-			_panel.color = 0xffffff;
 			
 			_tf = new TextField();
 			_tf.x = 2;
