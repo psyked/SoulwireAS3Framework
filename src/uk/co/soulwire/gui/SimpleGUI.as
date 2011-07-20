@@ -29,7 +29,8 @@ package uk.co.soulwire.gui
 	import com.bit101.components.PushButton;
 	import com.bit101.components.RangeSlider;
 	import com.bit101.components.Style;
-
+	import com.bit101.components.TextArea;
+	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.DisplayObjectContainer;
@@ -73,6 +74,7 @@ package uk.co.soulwire.gui
 		private var _target : DisplayObjectContainer;
 		private var _active : Component;
 		private var _stage : Stage;
+		private var _scope : Object;
 		
 		private var _toolbar : Sprite = new Sprite();		private var _message : Label = new Label();
 		private var _version : Label = new Label();
@@ -93,9 +95,10 @@ package uk.co.soulwire.gui
 		//	CONSTRUCTOR
 		//	----------------------------------------------------------------
 		
-		public function SimpleGUI(target : DisplayObjectContainer, title : String = null, hotKey : * = null)
+		public function SimpleGUI(target : DisplayObjectContainer, title : String = null, hotKey : * = null, scope : * = null)
 		{
 			_target = target;
+			_scope = scope;
 
 			_toggle.x = MARGIN;
 			_toggle.y = MARGIN;
@@ -315,6 +318,18 @@ package uk.co.soulwire.gui
 		public function addLabel(text : String) : void
 		{
 			addControl(Label, {text : text.toUpperCase()});
+		}
+
+		/**
+		 * Adds a textarea
+		 * 
+		 * @param text The text content of the textarea
+		 */
+		
+		public function addTextArea(text : String) : TextArea
+		{
+			var rtn:TextArea = addControl(TextArea, {text : text}) as TextArea;
+			return rtn;
 		}
 		
 		/**
@@ -668,7 +683,11 @@ package uk.co.soulwire.gui
 			
 			if (extended && options.hasOwnProperty("callback"))
 			{
-				options.callback.apply(_target, options.callbackParams || []);
+				if(_scope) {
+					options.callback.apply(_scope, options.callbackParams || []);
+				} else {
+					options.callback.apply(_target, options.callbackParams || []);
+				}
 			}
 		}
 		
@@ -855,10 +874,10 @@ package uk.co.soulwire.gui
 		
 		private function getTarget(path : String) : Object
 		{
-			var target : Object = _target;
+			var target : Object = (_scope) ? _scope : _target;
 			var hierarchy : Array = path.split('.');
 
-			if (hierarchy.length == 1) return _target;
+			if (hierarchy.length == 1) return (_scope) ? _scope : _target;
 			
 			for (var i : int = 0; i < hierarchy.length - 1; i++)
 			{
